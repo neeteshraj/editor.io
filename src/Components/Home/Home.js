@@ -7,7 +7,7 @@ import sh3 from "../../Assets/shape-3.svg";
 import sh6 from "../../Assets/shape-6.svg";
 import homeImg from "../../Assets/hero-img.png";
 import { Link } from "react-router-dom";
-import "../../App.css";
+import '../../App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Home() {
@@ -36,7 +36,7 @@ function Home() {
 
   const shape3 = {
     right: "88px",
-    top: "230px",
+    top: "270px",
     position: "absolute",
   };
 
