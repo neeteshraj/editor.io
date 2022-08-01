@@ -6,6 +6,8 @@ import { Remarkable } from "remarkable";
 import { linkify } from "remarkable/linkify";
 import { useLocalStorage } from "../../../Hooks/LocalStorage";
 import { InitialVal } from "../../../Constants/constants";
+import Toolbar from './Toolbar'
+import fileDownload from "js-file-download";
 import Footer from "../../Footer/Footer";
 
 function Editor() {
@@ -72,6 +74,11 @@ function Editor() {
         >
           <Col md={6} className="text-center">
             <h3 className="text-center">Markdown Editor</h3>
+            <Toolbar
+              clickHandler={() => {
+                fileDownload(userInput, "README.md");
+              }}
+            />
             <TextareaAutosize
               id="textarea_input"
               onChange={handelChange}
