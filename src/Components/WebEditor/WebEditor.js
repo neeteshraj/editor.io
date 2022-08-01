@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import Editor from "../Editor/Editor";
+import Editor from "../Editor/Web/Editor";
 import Footer from "../Footer/Footer";
 import { useLocalStorage } from "../../Hooks/LocalStorage";
 import "bootstrap/dist/css/bootstrap.min.css";
