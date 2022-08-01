@@ -1,9 +1,10 @@
 import React from "react";
+import Editor from "../Editor/MarkDown/Editor";
 
 const MarkDownEditor = () => {
   return (
     <div>
-      <h1>MarkDown Editor</h1>
+      <Editor />
     </div>
   );
 };
