@@ -15,7 +15,7 @@ function LanguageManager() {
   const htmlDefault = `<h2>Hello User</h2>`;
 
   const cssDefault = `body{
-  text-align:center;
+    text-align:center;
 }`;
 
   const [htmlVal, updateHtmlStorage] = useLocalStorage("html", htmlDefault);

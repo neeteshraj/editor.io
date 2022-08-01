@@ -36,7 +36,7 @@ function Home() {
 
   const shape3 = {
     right: "88px",
-    top: "270px",
+    top: "230px",
     position: "absolute",
   };
 
