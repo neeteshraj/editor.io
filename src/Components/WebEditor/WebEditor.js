@@ -4,6 +4,7 @@ import Editor from "../Editor/Web/Editor";
 import Footer from "../Footer/Footer";
 import { useLocalStorage } from "../../Hooks/LocalStorage";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { htmlDefault, cssDefault } from "../../Constants/constants";
 import "../../App.css";
 
 function LanguageManager() {
@@ -11,12 +12,6 @@ function LanguageManager() {
     const blob = new Blob([code], { type });
     return URL.createObjectURL(blob);
   };
-
-  const htmlDefault = `<h2>Hello User</h2>`;
-
-  const cssDefault = `body{
-    text-align:center;
-}`;
 
   const [htmlVal, updateHtmlStorage] = useLocalStorage("html", htmlDefault);
   const [cssVal, updateCssStorage] = useLocalStorage("css", cssDefault);
