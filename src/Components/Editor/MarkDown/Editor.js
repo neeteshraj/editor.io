@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import TextareaAutosize from "react-autosize-textarea";
