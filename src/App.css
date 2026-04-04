@@ -1,62 +1,100 @@
-.btn:focus,
-.btn:active {
-  outline: none !important;
-  box-shadow: none !important;
+/* ═══ CodeMirror — Dark Theme ═══ */
+.cm-dark .CodeMirror {
+  height: 100% !important;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+  font-size: 13px !important;
+  line-height: 1.7 !important;
+  background: #0d0d0d !important;
+  color: #d4d4d8 !important;
 }
-pre {
-  padding: 10px;
+.cm-dark .CodeMirror-gutters {
+  background: #111111 !important;
+  border-right: 1px solid rgba(255,255,255,0.04) !important;
+}
+.cm-dark .CodeMirror-linenumber {
+  color: rgba(255,255,255,0.15) !important;
+  font-size: 11px !important;
+}
+.cm-dark .CodeMirror-cursor {
+  border-left-color: #6366f1 !important;
+}
+.cm-dark .CodeMirror-selected {
+  background: rgba(99,102,241,0.2) !important;
+}
+.cm-dark .CodeMirror-activeline-background {
+  background: rgba(255,255,255,0.02) !important;
+}
+/* Syntax colors — dark */
+.cm-dark .cm-keyword { color: #c678dd !important; }
+.cm-dark .cm-atom { color: #d19a66 !important; }
+.cm-dark .cm-number { color: #d19a66 !important; }
+.cm-dark .cm-def { color: #61afef !important; }
+.cm-dark .cm-variable { color: #d4d4d8 !important; }
+.cm-dark .cm-variable-2 { color: #e06c75 !important; }
+.cm-dark .cm-property { color: #61afef !important; }
+.cm-dark .cm-operator { color: #56b6c2 !important; }
+.cm-dark .cm-string { color: #98c379 !important; }
+.cm-dark .cm-string-2 { color: #98c379 !important; }
+.cm-dark .cm-tag { color: #e06c75 !important; }
+.cm-dark .cm-attribute { color: #d19a66 !important; }
+.cm-dark .cm-comment { color: #5c6370 !important; font-style: italic; }
+.cm-dark .cm-bracket { color: #abb2bf !important; }
+.cm-dark .cm-builtin { color: #e5c07b !important; }
+.cm-dark .cm-meta { color: #61afef !important; }
+
+/* ═══ CodeMirror — Light Theme ═══ */
+.cm-light .CodeMirror {
+  height: 100% !important;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+  font-size: 13px !important;
+  line-height: 1.7 !important;
+  background: #ffffff !important;
+  color: #383a42 !important;
+}
+.cm-light .CodeMirror-gutters {
+  background: #fafafa !important;
+  border-right: 1px solid #e5e7eb !important;
+}
+.cm-light .CodeMirror-linenumber {
+  color: #9ca3af !important;
+  font-size: 11px !important;
+}
+.cm-light .CodeMirror-cursor {
+  border-left-color: #4f46e5 !important;
+}
+.cm-light .CodeMirror-selected {
+  background: rgba(79,70,229,0.12) !important;
+}
+.cm-light .CodeMirror-activeline-background {
+  background: #f3f4f6 !important;
+}
+/* Syntax colors — light */
+.cm-light .cm-keyword { color: #a626a4 !important; }
+.cm-light .cm-atom { color: #986801 !important; }
+.cm-light .cm-number { color: #986801 !important; }
+.cm-light .cm-def { color: #4078f2 !important; }
+.cm-light .cm-variable { color: #383a42 !important; }
+.cm-light .cm-variable-2 { color: #e45649 !important; }
+.cm-light .cm-property { color: #4078f2 !important; }
+.cm-light .cm-operator { color: #0184bc !important; }
+.cm-light .cm-string { color: #50a14f !important; }
+.cm-light .cm-string-2 { color: #50a14f !important; }
+.cm-light .cm-tag { color: #e45649 !important; }
+.cm-light .cm-attribute { color: #986801 !important; }
+.cm-light .cm-comment { color: #a0a1a7 !important; font-style: italic; }
+.cm-light .cm-bracket { color: #383a42 !important; }
+.cm-light .cm-builtin { color: #c18401 !important; }
+.cm-light .cm-meta { color: #4078f2 !important; }
+
+/* ═══ Markdown Preview ═══ */
+.prose pre {
+  padding: 1rem;
+  border-radius: 8px;
   overflow: auto;
-  line-height: 1.45;
-  background-color: #ecf1f5;
-  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
 }
-
-.btn-primary:hover {
-  background-color: rgb(127, 62, 187) !important;
-}
-
-@media (max-width: 768px) {
-  .footer {
-    display: none;
-  }
-}
-.pane.pane-top {
-  background-color: #202429;
-  padding-left: 5px !important;
-  padding-right: 5px !important;
-  justify-content: center !important;
-}
-
-.editor-lang {
-  padding: 10px !important;
-}
-
-.editor-text {
-  text-align: center;
-  background-color: rgb(49 48 51 / 87%);
-  color: rgba(250, 230, 194, 0.972);
-  font-size: 1.2em;
-  line-height: 2;
-  justify-content: center;
-}
-
-.output-pane {
-  left: 0;
-  border: 0px solid;
-  position: absolute;
-  height: 50%;
-  width: 100%;
-  background-color: white;
-  padding-bottom: 20px;
-}
-
-.footer {
-  background-color: rgb(4, 11, 15) !important;
-  position: fixed;
-  bottom: 0;
-  height: 36px;
-  color: rgb(246, 225, 188);
-  text-align: center;
-  line-height: 2.5;
-  justify-content: center !important;
+.prose code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
 }
