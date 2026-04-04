@@ -35,6 +35,14 @@ declare module 'js-file-download' {
 
 declare module '@github/markdown-toolbar-element' {}
 
+declare module 'jszip' {
+  class JSZip {
+    file(name: string, data: string | Blob | ArrayBuffer): this;
+    generateAsync(options: { type: string }): Promise<Blob>;
+  }
+  export default JSZip;
+}
+
 // CSS imports
 declare module '*.css' {}
 declare module 'codemirror/lib/codemirror.css' {}

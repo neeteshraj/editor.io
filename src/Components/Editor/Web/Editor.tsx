@@ -4,10 +4,12 @@ import CodeMirror from "codemirror";
 import "codemirror/mode/xml/xml";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/css/css";
+import "codemirror/mode/markdown/markdown";
 import "codemirror/addon/edit/closetag";
 import "codemirror/addon/edit/matchtags";
 import "codemirror/addon/edit/closebrackets";
 import "codemirror/addon/edit/matchbrackets";
+import "codemirror/addon/selection/active-line";
 import "../../../App.css";
 
 interface Props {
@@ -30,9 +32,18 @@ export default function CodeEditor({ language, value, onChange, theme = "dark" }
     // Clear any previous editor DOM (handles StrictMode double-mount)
     wrapper.innerHTML = "";
 
+    // Resolve language to CodeMirror mode
+    const mode = language === "typescript"
+      ? { name: "javascript", typescript: true }
+      : language === "json"
+      ? { name: "javascript", json: true }
+      : language === "markdown"
+      ? "markdown"
+      : language;
+
     const cm = CodeMirror(wrapper, {
       value,
-      mode: language,
+      mode,
       theme: "default",
       lineNumbers: true,
       scrollbarStyle: "null" as any,
@@ -41,7 +52,7 @@ export default function CodeEditor({ language, value, onChange, theme = "dark" }
       matchTags: true as any,
       autoCloseBrackets: true,
       matchBrackets: true,
-      styleActiveLine: true,
+      styleActiveLine: true as any,
       indentUnit: 2,
       tabSize: 2,
       indentWithTabs: false,
@@ -71,7 +82,11 @@ export default function CodeEditor({ language, value, onChange, theme = "dark" }
 
   // Sync language
   useEffect(() => {
-    editorRef.current?.setOption("mode", language);
+    const m = language === "typescript" ? { name: "javascript", typescript: true }
+      : language === "json" ? { name: "javascript", json: true }
+      : language === "markdown" ? "markdown"
+      : language;
+    editorRef.current?.setOption("mode", m);
   }, [language]);
 
   // Sync external value changes only (not from typing)

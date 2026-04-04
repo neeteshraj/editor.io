@@ -129,9 +129,7 @@ export default function Home() {
             <img src="/logo_name.png" alt="LiveDraft" className="h-4 object-contain" />
           </Link>
           <div className="flex items-center gap-6">
-            <Link to="/web" className="text-[13px] text-gray-500 hover:text-gray-300 transition-colors">Editor</Link>
-            <Link to="/markdown" className="text-[13px] text-gray-500 hover:text-gray-300 transition-colors">Markdown</Link>
-            <a href="https://github.com/neeteshraj" target="_blank" rel="noopener noreferrer" className="text-[13px] text-gray-500 hover:text-gray-300 transition-colors">GitHub</a>
+            <a href="https://github.com/neeteshraj/editor.io" target="_blank" rel="noopener noreferrer" className="text-[13px] text-gray-500 hover:text-gray-300 transition-colors">GitHub</a>
           </div>
         </div>
       </nav>
@@ -169,35 +167,44 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-gray-500 leading-relaxed max-w-lg"
             >
-              A blazing-fast HTML, CSS & JavaScript editor with instant live
-              preview. Plus a markdown editor for your README files. No signup,
-              no install — just code.
+              A blazing-fast HTML, CSS, JavaScript & TypeScript editor with instant live
+              preview. Install npm packages, run code, and build — all in your browser.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-3"
             >
               <Link to="/web">
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold flex items-center gap-2.5 shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-shadow text-[15px] cursor-pointer"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="px-7 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold flex items-center gap-2 shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-shadow text-[14px] cursor-pointer"
                 >
                   Start Coding
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" />
+                </motion.button>
+              </Link>
+              <Link to="/typescript">
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="px-7 py-3.5 bg-blue-600/10 text-white rounded-xl font-semibold border border-blue-500/20 hover:bg-blue-600/20 transition-colors flex items-center gap-2 text-[14px] cursor-pointer"
+                >
+                  <Code2 className="w-4 h-4 text-blue-400" />
+                  TypeScript IDE
                 </motion.button>
               </Link>
               <Link to="/markdown">
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-white/5 text-white rounded-xl font-semibold border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors flex items-center gap-2.5 text-[15px] cursor-pointer"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="px-7 py-3.5 bg-white/5 text-white rounded-xl font-semibold border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors flex items-center gap-2 text-[14px] cursor-pointer"
                 >
-                  <FileText className="w-5 h-5" />
-                  Markdown Editor
+                  <FileText className="w-4 h-4" />
+                  Markdown
                 </motion.button>
               </Link>
             </motion.div>

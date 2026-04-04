@@ -19,3 +19,25 @@ export const cssDefault = `body {
   text-align: center;
   padding: 2rem;
 }`;
+
+export const tsDefault = `interface User {
+  name: string;
+  age: number;
+  email: string;
+}
+
+function greet(user: User): string {
+  return \`Hello, \${user.name}! You are \${user.age} years old.\`;
+}
+
+const user: User = {
+  name: "LiveDraft",
+  age: 1,
+  email: "hello@livedraft.dev"
+};
+
+console.log(greet(user));
+
+// Try installing packages!
+// Type "npm install lodash" in the terminal below
+`;
