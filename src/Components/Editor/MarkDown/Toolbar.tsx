@@ -1,3 +1,4 @@
+import { createElement } from "react";
 import {
   Heading1, Heading2, Heading3, Bold, Italic, Strikethrough,
   Quote, Code, CodeSquare, Link as LinkIcon,
@@ -84,15 +85,14 @@ export default function Toolbar({ clickHandler, onInsert, theme = "dark" }: Prop
       <markdown-toolbar for="textarea_input" className="flex items-center gap-px flex-wrap">
         {mdTools.map((tool, i) => {
           const Icon = tool.icon;
-          const Tag = tool.el as any;
-          const props = "props" in tool ? tool.props : {};
+          const elProps = "props" in tool ? tool.props : {};
           return (
             <span key={`${tool.title}-${i}`}>
-              <Tag {...props}>
+              {createElement(tool.el, elProps,
                 <button className={btn} title={tool.title}>
                   <Icon size={14} />
                 </button>
-              </Tag>
+              )}
               {/* Dividers after logical groups */}
               {(i === 2 || i === 5 || i === 7 || i === 9 || i === 12) && (
                 <span className={divider} />

@@ -98,18 +98,21 @@ export default function TypeScriptEditor() {
           if (line.match(/^\s*import\s+.*from\s+["'][^./]/)) return line;
           // Comment out local imports
           if (line.match(/^\s*import\s+/)) return `// ${line} // (local import)`;
+          if (line.match(/^\s*export\s+default\s+function\s/)) return line.replace(/export\s+default\s+/, "");
+          if (line.match(/^\s*export\s+default\s+class\s/)) return line.replace(/export\s+default\s+/, "");
+          if (line.match(/^\s*export\s+default\s+/)) return line.replace(/export\s+default\s+/, "const _default = ");
           if (line.match(/^\s*export\s+/)) return line.replace(/^(\s*)export\s+/, "$1");
           return line;
         });
 
         const result = transform(processedLines.join("\n"), {
-          transforms: ["typescript"],
-          disableESTransforms: true,
+          transforms: ["typescript", "jsx"],
+          production: true,
         });
         setCompiledJs(result.code);
         setCompileError("");
-      } catch (e: any) {
-        setCompileError(e.message || "Compilation error");
+      } catch (e: unknown) {
+        setCompileError(e instanceof Error ? e.message : "Compilation error");
       }
     }, 400);
     return () => clearTimeout(t);
@@ -140,7 +143,7 @@ export default function TypeScriptEditor() {
       ? `<script type="importmap">{"imports":{${packages.map((p) => `"${p.name}":"${p.url}"`).join(",")}}}<\/script>`
       : "";
     const cssContent = fs.readFile("styles/main.css") || "";
-    setSrcDoc(`<!DOCTYPE html><html><head><style>${cssContent}</style>${CONSOLE_SCRIPT}${importMap}</head><body><script type="module">${compiledJs}<\/script></body></html>`);
+    setSrcDoc(`<!DOCTYPE html><html><head>${importMap}<style>${cssContent}</style>${CONSOLE_SCRIPT}</head><body><div id="root"></div><div id="app"></div><script type="module">${compiledJs}<\/script></body></html>`);
   }, [compiledJs, isLive, packages]);
 
   // ── File operations ──
@@ -382,8 +385,8 @@ export default function TypeScriptEditor() {
         setPackages((prev) => [...prev, { name: pkgName, version, url: `https://esm.sh/${pkgName}@${version}` }]);
         fs.addDependency(pkgName, version);
         setTerminalHistory((prev) => [...prev, `+ ${pkgName}@${version}`, `  import { ... } from "${pkgName}";`]);
-      } catch (e: any) {
-        setTerminalHistory((prev) => [...prev, `Error: ${e.message}`]);
+      } catch (e: unknown) {
+        setTerminalHistory((prev) => [...prev, `Error: ${e instanceof Error ? e.message : "Unknown error"}`]);
       }
       return;
     }
@@ -716,12 +719,17 @@ export default function TypeScriptEditor() {
             </div>
 
             <div className="flex-1 relative overflow-hidden">
-              {outputTab === "preview" && (
-                isLive && srcDoc ? (
-                  <iframe srcDoc={srcDoc} className="w-full h-full bg-white border-0 absolute inset-0" title="output" sandbox="allow-scripts allow-modals" />
-                ) : (
-                  <div className={`w-full h-full flex items-center justify-center ${textMuted} text-sm`}>{isLive ? "Write code to see output" : "Preview off"}</div>
-                )
+              {/* iframe always rendered so console capture works regardless of active tab */}
+              {isLive && srcDoc && (
+                <iframe
+                  srcDoc={srcDoc}
+                  className={`w-full h-full bg-white border-0 absolute inset-0 ${outputTab === "preview" ? "" : "invisible"}`}
+                  title="output"
+                  sandbox="allow-scripts allow-modals allow-same-origin"
+                />
+              )}
+              {outputTab === "preview" && !isLive && (
+                <div className={`w-full h-full flex items-center justify-center ${textMuted} text-sm`}>Preview off</div>
               )}
 
               {outputTab === "console" && (

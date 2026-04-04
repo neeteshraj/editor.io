@@ -19,6 +19,15 @@ interface Props {
   theme?: "dark" | "light";
 }
 
+type CMMode = string | { name: string; typescript?: boolean; json?: boolean };
+
+function resolveMode(language: string): CMMode {
+  if (language === "typescript") return { name: "javascript", typescript: true };
+  if (language === "json") return { name: "javascript", json: true };
+  if (language === "markdown") return "markdown";
+  return language;
+}
+
 export default function CodeEditor({ language, value, onChange, theme = "dark" }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<CodeMirror.Editor | null>(null);
@@ -29,35 +38,22 @@ export default function CodeEditor({ language, value, onChange, theme = "dark" }
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
-    // Clear any previous editor DOM (handles StrictMode double-mount)
     wrapper.innerHTML = "";
 
-    // Resolve language to CodeMirror mode
-    const mode = language === "typescript"
-      ? { name: "javascript", typescript: true }
-      : language === "json"
-      ? { name: "javascript", json: true }
-      : language === "markdown"
-      ? "markdown"
-      : language;
-
-    const cm = CodeMirror(wrapper, {
+    const config: CodeMirror.EditorConfiguration = {
       value,
-      mode,
+      mode: resolveMode(language),
       theme: "default",
       lineNumbers: true,
-      scrollbarStyle: "null" as any,
       lineWrapping: false,
       autoCloseTags: true,
-      matchTags: true as any,
       autoCloseBrackets: true,
       matchBrackets: true,
-      styleActiveLine: true as any,
       indentUnit: 2,
       tabSize: 2,
       indentWithTabs: false,
       extraKeys: {
-        Tab: (editor: CodeMirror.Editor) => {
+        Tab: (editor) => {
           if (editor.somethingSelected()) {
             editor.indentSelection("add");
           } else {
@@ -65,7 +61,15 @@ export default function CodeEditor({ language, value, onChange, theme = "dark" }
           }
         },
       },
-    });
+    };
+
+    // These are from addons — not in base EditorConfiguration type
+    // but are valid runtime options once the addon JS is imported
+    (config as Record<string, unknown>).scrollbarStyle = "null";
+    (config as Record<string, unknown>).matchTags = true;
+    (config as Record<string, unknown>).styleActiveLine = true;
+
+    const cm = CodeMirror(wrapper, config);
 
     cm.on("change", () => {
       callbackRef.current(cm.getValue());
@@ -78,18 +82,12 @@ export default function CodeEditor({ language, value, onChange, theme = "dark" }
       editorRef.current = null;
       wrapper.innerHTML = "";
     };
-  }, []); // mount once
+  }, []);
 
-  // Sync language
   useEffect(() => {
-    const m = language === "typescript" ? { name: "javascript", typescript: true }
-      : language === "json" ? { name: "javascript", json: true }
-      : language === "markdown" ? "markdown"
-      : language;
-    editorRef.current?.setOption("mode", m);
+    editorRef.current?.setOption("mode", resolveMode(language));
   }, [language]);
 
-  // Sync external value changes only (not from typing)
   useEffect(() => {
     const cm = editorRef.current;
     if (cm && cm.getValue() !== value) {
